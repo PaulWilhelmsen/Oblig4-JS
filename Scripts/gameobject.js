@@ -16,5 +16,5 @@ GameObject.prototype.draw = function(camera)
 
 GameObject.prototype.update = function()
 {
-    this.transform.rotate(vec3(0, 1, 0));
+    this.transform.rotate(vec3(0, 0.4, 0));
 }

@@ -36,31 +36,42 @@ window.onload = function init() {
 		1,3,4
     ];
 				//position, rotation, nearPlane, farPlane, fieldOfView
-	camera = new Camera(vec3(0,-3,-5), vec3(20,0,0), 45, 1, 60);
-    kake = new Mesh(vertices, indices, gl.TRIANGLES);
-    shade = new Shader();
-				
-    gameObject = new GameObject(vec3(0,0,0), vec3(0,0,0), vec3(1,1,1), kake, shade);
-	gameObjects.push(gameObject);
+	camera = new Camera(vec3(0,-3,-5), vec3(20,0,0), 45, 1, 100);    
+	shade = new Shader();
+    
+	tetramesh = new Mesh(vertices, indices, gl.TRIANGLES);
+	var trepartAmount = 3;
+	for(var i = 0; i < trepartAmount; i++)
+		{
+										//position, rotation, scale, mesh, shader
+			tretop = new GameObject(vec3(0,trepartAmount - i, 0), vec3(0,0,0), vec3(1 + (i/5),1,1 + (i/5)), tetramesh, shade);
+			gameObjects.push(tretop);
+		}
+    //tretop = new GameObject(vec3(0,0,0), vec3(0,0,0), vec3(1,1,1), kake, shade);
+	//gameObjects.push(gameObject);
 	Update();
     Render();
 };
 
 function Update(){
 	
-	gameObject.update();
+		gameObjects.forEach(function(gameObject){
+	
+		    gameObject.update();
+	});
+	
 }
 function Render() {
 	
     gl.clear(gl.COLOR_BUFFER_BIT);
 	Update();
 	
-	gameObject.draw(camera);
+	//gameObject.draw(camera);
 	
-	//gameObjects.forEach(function(gameObject){
-	//
-	//	    gameObject.draw(camera)
-	//});
+	gameObjects.forEach(function(gameObject){
+	
+		    gameObject.draw(camera)
+	});
 	
     window.requestAnimFrame(Render);
 }
