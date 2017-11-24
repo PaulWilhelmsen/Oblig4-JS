@@ -1,5 +1,6 @@
-function Shader()
+function Shader(color)
 {
+	
     this.program = initShaders(gl, "vertex-shader", "fragment-shader");
 
     gl.useProgram(this.program);
