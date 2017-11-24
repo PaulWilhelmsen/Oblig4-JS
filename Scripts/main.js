@@ -36,15 +36,16 @@ window.onload = function init() {
 		1,3,4
     ];
 				//position, rotation, nearPlane, farPlane, fieldOfView
-	camera = new Camera(vec3(0,-3,-5), vec3(20,0,0), 45, 1, 100);    
+	camera = new Camera(vec3(0,-5,-5), vec3(20,0,0), 45, 1, 100);    
 	shade = new Shader();
     
 	tetramesh = new Mesh(vertices, indices, gl.TRIANGLES);
-	var trepartAmount = 3;
+	var trepartAmount = 5;
+	var size = 4;
 	for(var i = 0; i < trepartAmount; i++)
 		{
 										//position, rotation, scale, mesh, shader
-			tretop = new GameObject(vec3(0,trepartAmount - i, 0), vec3(0,0,0), vec3(1 + (i/5),1,1 + (i/5)), tetramesh, shade);
+			tretop = new GameObject(vec3(0,trepartAmount - i, 0), vec3(0,0,0), vec3(0.2 + (i/size),1 - (i/size),0.2 + (i/size)), tetramesh, shade);
 			gameObjects.push(tretop);
 		}
     //tretop = new GameObject(vec3(0,0,0), vec3(0,0,0), vec3(1,1,1), kake, shade);
