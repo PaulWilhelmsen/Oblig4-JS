@@ -8,7 +8,9 @@ function GameObject(position, rotation, scale, mesh, shader)
 GameObject.prototype.draw = function(camera)
 {
     var mat = mult(camera.getMatrix(), this.transform.getMatrix());
+	
     mat = mult(camera.perspectiveMatrix, mat);
+	
     gl.uniformMatrix4fv(this.shader.mvpMatrix, false, flatten(mat));
 
     this.mesh.draw(this.shader);

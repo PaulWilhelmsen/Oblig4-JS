@@ -20,11 +20,11 @@ window.onload = function init() {
 
 
     var vertices = [
-        0, 1, 0,      1, 0, 0, 0, 0, //0
-        -1, -1, -1,   1, 0, 0, 0, 0,  //1
-        -1,-1, 1,     1, 0, 0, 0, 0, //2
-        1,-1, 1,      1, 0, 0, 0, 0, //3
-		1,-1, -1,     1, 0, 0, 0, 0, //4	
+        0, 1, 0,      0, 1, 0, 0, 0, //0
+        -1, -1, -1,   0, 1, 0, 0, 0,  //1
+        -1,-1, 1,     0, 1, 0, 0, 0, //2
+        1,-1, 1,      0, 1, 0, 0, 0, //3
+		1,-1, -1,     0, 1, 0, 0, 0, //4	
     ];
 
     var indices = [
@@ -97,7 +97,7 @@ function Update(){
 }
 function Render() {
 	
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	Update();
 	//gameObject.draw(camera);
 	
