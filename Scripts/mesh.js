@@ -20,7 +20,6 @@ Mesh.prototype.draw = function (shader) {
         gl.vertexAttribPointer(shader.vPosition, 3, gl.FLOAT, false, 8 * Float32Array.BYTES_PER_ELEMENT, 0);
         gl.enableVertexAttribArray(shader.vPosition);
     }
-	
     var offset = 3 * Float32Array.BYTES_PER_ELEMENT;
     if (shader.vNormal != -1) {
         gl.vertexAttribPointer(shader.vNormal, 3, gl.FLOAT, false, 8 * Float32Array.BYTES_PER_ELEMENT, offset);
