@@ -11,10 +11,11 @@ Camera.prototype.getMatrix = function ()
 {
     //View matrix
     var mat = mat4();
+	mat = mult(mat, translate(this.position[0], this.position[1], this.position[2]));
     mat = mult(mat, rotate(this.rotation[0], 1, 0, 0));
     mat = mult(mat, rotate(this.rotation[1], 0, 1, 0));
     mat = mult(mat, rotate(this.rotation[2], 0, 0, 1));
-    mat = mult(mat, translate(this.position[0], this.position[1], this.position[2]));
+    
     
 	this.matrix = mat;
     

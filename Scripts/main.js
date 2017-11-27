@@ -13,45 +13,46 @@ window.onload = function init() {
     if (!gl) { alert("WebGL isn't available"); }
 
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(1.0, 1.0, 1.0, 1.0);
+    gl.clearColor(.6, .4, 1.0, 1.0);
 	
 	gl.enable(gl.DEPTH_TEST);
-//    gl.enable(gl.BLEND);
+	gl.enable(gl.CULL_FACE);
+//	gl.enable(gl.BLEND);
 //    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
 
     var vertices = [
         0, 1, 0,      0, 1, 0, 0, 0, //0
-        -1, -1, -1,   0, 1, 0, 0, 0,  //1
-        -1,-1, 1,     0, 1, 0, 0, 0, //2
-        1,-1, 1,      0, 1, 0, 0, 0, //3
-		1,-1, -1,     0, 1, 0, 0, 0, //4	
+        -1, -1, -1,   -.33, -.33, -.33, 0, 0,  //1
+        1,-1, -1,     .33, -.33, -.33, 0, 0, //2
+        1,-1, 1,      .33, -.33, .33, 0, 0, //3
+		-1,-1, 1,     -.33, -.33, .33, 0, 0, //4	
     ];
 
     var indices = [
-        0,1,2,
-        0,2,3,
-        0,3,4,
+        0,2,1,
+        0,3,2,
+        0,4,3,
 		0,1,4,
 		1,2,3,
 		1,3,4
     ];
 				//position, rotation, nearPlane, farPlane, fieldOfView
-	camera = new Camera(vec3(0,-5,-5), vec3(0,0,0), 45, 1, 100);    
+	camera = new Camera(vec3(0,-3,-20), vec3(0,0,0), 1, 100, 45);    
 	shade = new Shader();
     
 	tetramesh = new Mesh(vertices, indices, gl.TRIANGLES);
 	var trepartAmount = 5;
-	var size = 4;
+	var size = 3;
 	var locationTreFot;
 	for(var i = 0; i < trepartAmount; i++)
 		{
 								    //position,                   rotation,     scale,                          					mesh,   shader
-			tretop = new GameObject(vec3(0,trepartAmount - i, 0), vec3(0,0,0), vec3(0.2 + (i/size),1 - (i/size),0.2 + (i/size)), tetramesh, shade);
+			tretop = new GameObject(vec3(0,trepartAmount - i, 0), vec3(0,0,0), vec3(0.2 + (i/size),0.5 + (i/size),0.2 + (i/size)), tetramesh, shade);
 			gameObjects.push(tretop);
 		}
-		var trefoot = new GameObject(vec3(0,locationTreFot - 2, 0), vec3(0,0,0), vec3(1,1,1), tetramesh, shade);
-	gameObjects.push(trefoot);
+//	var trefoot = new GameObject(vec3(0,locationTreFot - 2, 0), vec3(0,0,0), vec3(1,1,1), tetramesh, shade);
+//	gameObjects.push(trefoot);
 	139,69,19
 	vertices = [
 		-1, 2,  1,	139/255,69/255,19/255,	0,0,	//0
@@ -78,7 +79,7 @@ window.onload = function init() {
 		2,7,3,	//back	
 	]
 	var rectangle = new Mesh(vertices, indices, gl.TRIANGLES);
-	var stamme = new GameObject(vec3(0,0,0), vec3(0,0,0), vec3(0.2,0.2,0.2), rectangle, shade);
+	var stamme = new GameObject(vec3(0,-1,0), vec3(0,0,0), vec3(0.2,0.2,0.2), rectangle, shade);
 	gameObjects.push(stamme);
 
 	
@@ -98,7 +99,8 @@ function Update(){
 		    	gameObject.update();
 			});
 		}
-
+//	camera.rotation[0]+=0.5;
+	//camera.rotation[0]++;
 	
 }
 function Render() {
@@ -110,7 +112,7 @@ function Render() {
 	
 	gameObjects.forEach(function(gameObject){
 	
-		    gameObject.draw(camera)
+		    gameObject.draw(camera);
 	});
 	
     window.requestAnimFrame(Render);

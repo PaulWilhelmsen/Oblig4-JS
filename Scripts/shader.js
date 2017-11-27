@@ -1,4 +1,4 @@
-	var lightPosition = vec4(1.0, 1.0, 1.0, 0.0 );
+	var lightPosition = vec4(5.0, 1.0, 1.0, 0.0 );
 	var lightAmbient = vec4(0.3, 0.3, 0.3, 1.0 );
 	var lightDiffuse = vec4( 1.0, 1.0, 1.0, 1.0 );
 	var lightSpecular = vec4( 1.0, 1.0, 1.0, 1.0 );
@@ -8,9 +8,8 @@
 	var materialSpecular = vec4( 1.0, 0.8, 0.0, 1.0 );
 	var materialShininess = 100.0;
 
-function Shader(color)
+function Shader()
 {
-	
     this.program = initShaders(gl, "vertex-shader", "fragment-shader");
 
     gl.useProgram(this.program);
@@ -21,6 +20,7 @@ function Shader(color)
     this.vNormal = gl.getAttribLocation(this.program, "vNormal");
 
     this.mvpMatrix = gl.getUniformLocation(this.program, "mvpMatrix");
+	this.projectionMatrix = gl.getUniformLocation(this.program, "projectionMatrix");
 	
 	this.ambientProduct = mult(lightAmbient, materialAmbient);
     this.diffuseProduct = mult(lightDiffuse, materialDiffuse);
