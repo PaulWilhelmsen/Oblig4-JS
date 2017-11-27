@@ -1,4 +1,19 @@
 function Mesh(vertices, indices, drawMode) {
+	
+//	this.normalArray = [];
+//	for (var i = 0;i<indices; i+=3)
+//		{
+//			var t1 = subtract(vertices[i+1].xyz, vertices[i].xyz);
+//    		var t2 = subtract(vertices[i+2].xyz, vertices[i+1].xyz);
+//    		var normal = cross(t1, t2);
+//    		var normal = vec3(normal);
+//	
+//			normalsArray.push(normal);
+//		}
+	
+
+	
+	
     this.vertexBuffer = gl.createBuffer();
 	
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);

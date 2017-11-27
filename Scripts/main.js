@@ -4,6 +4,7 @@ var kake;
 var camera;
 var shade;
 var gameObjects = [];
+var flag = false;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
@@ -15,8 +16,8 @@ window.onload = function init() {
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
 	
 	gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+//    gl.enable(gl.BLEND);
+//    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
 
     var vertices = [
@@ -31,11 +32,12 @@ window.onload = function init() {
         0,1,2,
         0,2,3,
         0,3,4,
+		0,1,4,
 		1,2,3,
 		1,3,4
     ];
 				//position, rotation, nearPlane, farPlane, fieldOfView
-	camera = new Camera(vec3(0,-5,-5), vec3(20,0,0), 45, 1, 100);    
+	camera = new Camera(vec3(0,-5,-5), vec3(0,0,0), 45, 1, 100);    
 	shade = new Shader();
     
 	tetramesh = new Mesh(vertices, indices, gl.TRIANGLES);
@@ -44,7 +46,7 @@ window.onload = function init() {
 	var locationTreFot;
 	for(var i = 0; i < trepartAmount; i++)
 		{
-										//position, rotation, scale, mesh, shader
+								    //position,                   rotation,     scale,                          					mesh,   shader
 			tretop = new GameObject(vec3(0,trepartAmount - i, 0), vec3(0,0,0), vec3(0.2 + (i/size),1 - (i/size),0.2 + (i/size)), tetramesh, shade);
 			gameObjects.push(tretop);
 		}
@@ -89,10 +91,14 @@ window.onload = function init() {
 
 function Update(){
 	
-		gameObjects.forEach(function(gameObject){
-	
-		    gameObject.update();
-	});
+	if(flag)
+		{
+			gameObjects.forEach(function(gameObject)
+			{
+		    	gameObject.update();
+			});
+		}
+
 	
 }
 function Render() {
@@ -100,6 +106,7 @@ function Render() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	Update();
 	//gameObject.draw(camera);
+	document.getElementById("ButtonT").onclick = function(){flag = !flag;};
 	
 	gameObjects.forEach(function(gameObject){
 	
